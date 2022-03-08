@@ -36,8 +36,4 @@ To run the tool, enter either of the following commands in python console/termin
 - https://realpython.com/flask-by-example-part-1-project-setup/
 
 ## Authors
-- Javier Lim [@javvylx](https://github.com/javvylx)
-- Tay Kai Keng [@TayKK](https://github.com/TayKK)
-- Ng Zhen Feng [@zfnggg](https://github.com/zfnggg)
-- Eugene Tan Wei Jie [@J3n3ns](https://github.com/J3n3ns)
-- Claudia Chan [@x3Kuro](https://github.com/x3Kuro)
+
