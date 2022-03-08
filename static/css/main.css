@@ -1,0 +1,280 @@
+* {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+}
+
+
+body{
+    /* min-height: 1500px; */
+}
+
+.logo
+{
+    color:black;
+}
+
+.login-cont{
+
+}
+
+.main-cont{
+    min-height: 700px;
+}
+
+section:before
+{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    height:100px;
+    background: linear-gradient(to top, #170a45, transparant);
+    z-index:999999;
+}
+
+section:after
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+    background: #0a2a43;
+    z-index:999999;
+    mix-blend-mode: color;
+}
+
+
+section
+{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section img
+{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.stars
+{
+    position: initial;
+    width: 400px;
+    height: auto;
+    padding-bottom: 50px;
+}
+
+.stars-teacher
+{
+    position: initial;
+    width: 100%;
+    height: auto;
+    padding-bottom: 50px;
+}
+
+
+#layer1
+{
+    z-index: 2;
+}
+
+#layer2
+{
+    z-index:1;
+}
+
+#layer3
+{
+    z-index:0;
+}
+
+.const-img
+{
+    position: relative;
+    width:100px;
+    height:auto;
+}
+
+.hero-row
+{
+    position: absolute;
+    top:50px;
+    left:0;
+    width: 100%;
+    height: 100%;
+    object-fit: center;
+    pointer-events: none;
+}
+
+.hero-row-teacher
+{
+    top:20px;
+    position: absolute;
+    object-fit: center;
+    pointer-events: none;
+    width: 70%;
+    
+}
+
+.login-card{
+    min-height:400px;
+    border-top:3px solid black;
+    margin: 80px;
+}
+
+
+.main-card{
+    min-height:400px;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.grade-card{
+    min-height:150px;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.login-button{
+    margin-bottom: 14px;
+}
+
+.content-label{
+    margin-bottom: 14px;
+}
+
+.card
+{
+    border-radius: 10px;
+}
+
+.card-title
+{
+    color: black !important;
+}
+
+.card-img{
+    max-width: 150px;
+    height: auto !important;
+    padding: 20px !important;
+    margin-right: auto;
+    margin-left:auto;
+}
+
+.btn-ctr{
+    margin: 1.52rem 0 .912rem 0;
+}
+
+.individual-stars{
+    min-width: 300px;
+    height:auto;
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+ 
+  
+  100%{
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+ 
+  
+  100%{
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.dot-1 {
+  transform-origin: 50% 50%;
+  animation: pulse 3s -3s cubic-bezier(0.455, 0.03, 0.515, 0.955) alternate infinite;
+}
+
+.ring-1 {
+  transform-origin: 50% 50%;
+  animation: pulse-ring 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.dot-2 {
+  transform-origin: 50% 50%;
+  animation: pulse 1s -1s cubic-bezier(0.455, 0.03, 0.515, 0.955) alternate infinite;
+}
+
+.ring-2 {
+  transform-origin: 50% 50%;
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.dot-3 {
+  transform-origin: 50% 50%;
+  animation: pulse 0.2s -0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) alternate infinite;
+}
+
+.ring-3 {
+  transform-origin: 50% 50%;
+  animation: pulse-ring 1s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.progress{
+    height: 30px;
+    border-radius: 10px;
+    background-color: grey;
+}
+
+.progress .determinate{
+    background-color: black;
+}
+
+.prog-bar-cont{
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+.my-button{
+    margin-bottom: 10px;
+}
+
+.teacher
+{
+    background:black;
+}
+
+.link-text
+{
+    color:black;
+}
+
+.componentText
+{
+    text-transform: uppercase;
+}
+
+.skybar
+{
+    z-index: 999;
+}

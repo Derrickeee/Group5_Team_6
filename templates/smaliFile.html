@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Obfuscator App</title>
+
+<div class="container login-cont">
+    <div class="Content">
+        <div id="login-page" class="row">
+            <div class="login-card col s12 m8 push-m2 z-depth-4 grey lighten-5">
+                <h4 class="center">Code Obfuscator App - Smali File</h4>
+                <div class="input-field col s12">
+                    <input id="filename" name="filename" type="text" class="validate">
+                    <label for="filename1" class="center">{{ 'Selected File: ' + filename }}</label>
+                </div>
+                <form method="POST" action="#">
+                    <div class="center col s12">
+                        <label for="home" class='btn center waves-effect waves-light black login-button s6'>Home</label>
+                        <input type = "submit" id = "home" name='smaliButton' value='home' hidden>
+
+                        <label for="obfuscate" class='btn center waves-effect waves-light black login-button s6'>Obfuscate</label>
+                        <input type = "submit" id = "obfuscate" name='smaliButton' value='obfuscate' hidden>
+
+                    </div>
+                </form>
+                
+                <div class="input-field col m12">
+                    <h5 class="left">Original File Contents</h5>
+                    <textarea name="original" id="original" rows="100" style="width: 600px; height: 250px;" disabled>{{ originalContents }}</textarea>
+                </div>
+
+                <div class="input-field col m12">
+                    <h5 class="left">Obfuscated File Contents</h5>
+                    <textarea name="obfuscated" id="obfuscated" rows="100" style="width: 600px; height: 250px;" disabled>{{ obfuscatedContents }}</textarea>
+                </div>
+
+                <h6 class="center">Obfuscation Time: {{ oTime }}</h6>
+
+                <h6 class="center">File size difference: {{ size }}</h6>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

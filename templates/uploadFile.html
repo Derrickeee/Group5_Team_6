@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Obfuscator App</title>
+
+<div class="container login-cont">
+    <div class="Content">
+        <div id="login-page" class="row">
+            <div class="login-card col s12 m8 push-m2 z-depth-2 grey lighten-5">
+                <h4 class="center">Code Obfuscator App</h4>
+                <div class="file-field input-field">
+                    <form action = "http://localhost:5000/uploader" method = "POST" 
+                        enctype = "multipart/form-data">
+                        <label for="file" class='btn center waves-effect waves-light black login-button'>File Upload</label>
+                        <input type = "file" id = "file" name='file' multiple>
+                        <div class="file-path-wrapper">
+                            <input id="readText" class="file-path validate" type="text" disabled>
+                        </div>
+                        <div class="input-field col s12"></div>
+                        <div class="center">
+                            <button type="submit" name="continue" value="Continue"
+                            class="btn center waves-effect waves-light black login-button">Continue</button>
+                        </div>
+                    </form>
+                    <div class="input-field col s12">
+                        <input id="notice" name="notice" type="text" class="input-lg" disabled/>
+                        <label for="notice">{{ notice }}</label>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function thisFileUpload() {
+        document.getElementById("file").click();
+    };
+</script>
+
+{% endblock %}
+
+

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Obfuscator App</title>
+
+<div class="container login-cont">
+    <div class="Content">
+        <div id="login-page" class="row">
+            <div class="login-card col s12 m8 push-m2 z-depth-2 grey lighten-5">
+                <h4 class="center">Code Obfuscator App - APK</h4>
+                <div class="input-field col s12">
+                    <input id="filename" name="filename" type="text" class="validate" disabled>
+                    <label for="filename" class="center">Selected File: {{ filename }}</label>
+                </div>
+                <div class="center col s12">
+                    <form method="POST" action="#">
+                        <label for="home" class='btn center waves-effect waves-light black login-button s6'>Home</label>
+                        <input type = "submit" id = "home" name='apkButton' value='home' hidden>
+
+                        <label for="decompile" class='btn center waves-effect waves-light black login-button s6'>Decompile</label>
+                        <input type = "submit" id = "decompile" name='apkButton' value='decompile' hidden>
+
+                        <label for="recompile" class='btn center waves-effect waves-light black login-button s6'>Obfuscate and recompile</label>
+                        <input type = "submit" id = "recompile" name='apkButton' value='recompile' hidden>
+                    </form>
+                    
+                    <div class="input-field col m12">
+                        <h5 class="left">Original MainActivity Contents</h5>
+                        <textarea name="original" id="original" rows="100" style="width: 600px; height: 250px;" disabled>{{ originalContents }}</textarea>
+                    </div>
+    
+                    <div class="input-field col m12">
+                        <h5 class="left">Obfuscated MainActivity Contents</h5>
+                        <textarea name="obfuscated" id="obfuscated" rows="100" style="width: 600px; height: 250px;" disabled>{{ obfuscatedContents }}</textarea>
+                    </div>
+
+                    <h6 class="center">Obfuscation Time: {{ oTime }}</h6>
+
+                    <h6 class="center">File size difference: {{ size }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
