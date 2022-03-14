@@ -1,5 +1,5 @@
-# SIT ICT 2207 AY20/21 Mobile Security Project 
-This is a Year 2 Trimester 2 ICT 2207 - Mobile Security Project. This project's objective is to design and develop smart obfuscation algorithms to prevent the reverse engineering of Android APKs. 
+# SIT Project 
+This is a Year 2 Trimester 2 Mobile Security Project. This project's objective is to design and develop smart obfuscation algorithms to prevent the reverse engineering of Android APKs. 
 
 The tool is able to take in and obfuscate both Java and Smali code that the user inputs via a web Graphical User Interface (GUI). Android applications can be reverse engineered for undesirable purposes, such as allowing others to inject malicious code into the application for malicious purposes, or copying and duplicating the application for their own resale. In order to counter this, it is important to obfuscate the codes that one writes to conceal its purpose. This protects the application from potential tampering and misuse. 
 
@@ -36,8 +36,4 @@ To run the tool, enter either of the following commands in python console/termin
 - https://realpython.com/flask-by-example-part-1-project-setup/
 
 ## Authors
-- Javier Lim [@javvylx](https://github.com/javvylx)
-- Tay Kai Keng [@TayKK](https://github.com/TayKK)
-- Ng Zhen Feng [@zfnggg](https://github.com/zfnggg)
-- Eugene Tan Wei Jie [@J3n3ns](https://github.com/J3n3ns)
-- Claudia Chan [@x3Kuro](https://github.com/x3Kuro)
+
