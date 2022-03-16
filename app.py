@@ -5,7 +5,7 @@ import pandas as pd
 
 
 console = Tk()
-varOption = IntVar()
+
 
 
 
@@ -76,7 +76,7 @@ def fileBrowserFromMenu():  # will run if user selects the option to reupload da
 if __name__== "__main__":
     console.title("Obfuscation Algorithm")
     console.geometry("900x600")
-    entry_nooftweets = Entry(console, font="lucida 23 bold", width=20)
+    entry = Entry(console, font="lucida 23 bold", width=20)
     title = Label(console, text="Obfuscate", fg="blue", font="lucida 25 bold").place(
         x=150, y=220)
 
@@ -88,7 +88,7 @@ if __name__== "__main__":
                             width=13).place(x=700, y=440)
     submit_button4 = Button(console, text="Browse", bg="red3", font="lucida 15 bold", borderwidth=3, height=1,
                             width=13, command=fileBrowserFromMenu).place(x=700, y=150)
-    entry_nooftweets.place(x=250, y=140)
+    entry.place(x=250, y=140)
     sentiment = Label(console)
     sentiment.pack()
     console.mainloop()
