@@ -7,12 +7,7 @@ import pandas as pd
 console = Tk()
 varOption = IntVar()
 
-def run():
-    tweets = entry_nooftweets.get()
-    if not tweets:
-        tkinter.messagebox.showerror(title="Empty Field!", message="Please enter number of tweets.", font="lucida 15")
-    if tweets and not tweets.isnumeric():
-        tkinter.messagebox.showerror(title="Empty Field!", message="Please enter an integer.")
+
 
 def fileBrowser():
     """This function will only run after user presses browse-a-file button"""
