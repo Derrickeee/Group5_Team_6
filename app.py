@@ -33,17 +33,22 @@ def fileBrowser():
     MainPageLabel2.destroy()
     browseButton.destroy()
 
-    # stores the file path of the user selected data-set to be used with our other functions
-    file_path = filedialog.askopenfilename(initialdir="",
-                                           title="Select Dataset File",
-                                           filetypes=((".csv Files", "*.csv"), ("All Files", "*.*")))
 
-    file_name = file_path  # In same Folder
-    file = pd.read_csv(file_name, sep=",")  # Opens CSV in same folder as the .py file
-    df = pd.DataFrame(file)  # Converts to dataframe for easier handling
+    tf = filedialog.askopenfilename(
+            initialdir="",
+            title="Open Text file",
+            filetypes=(("Text Files", "*.txt"), ("SMALI Files", "*.smali"),))
+    path.insert(END, tf)
+    tf = open(tf, 'r')
+    data = tf.read()
+    tf.close()
+
+path = Entry(console)
+path.pack( expand=True, fill=X, padx=0.3)
+#df = pd.DataFrame(file)  # Converts to dataframe for easier handling
 
     # Window that updates after selecting CSV file
-    console.geometry("1000x650")
+console.geometry("1000x650")
 
 
 # Create Label to instruct users to browse for data
