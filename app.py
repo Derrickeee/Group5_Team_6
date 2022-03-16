@@ -38,8 +38,7 @@ def fileBrowser():
     data = tf.read()
     tf.close()
 
-path = Entry(console)
-path.pack( expand=True, fill=X, padx=0.3)
+
 #df = pd.DataFrame(file)  # Converts to dataframe for easier handling
 
     # Window that updates after selecting CSV file
