@@ -52,10 +52,10 @@ def fileBrowser():
     # Calculate size difference of the two MainActivity.smali in percentage
     sizeDiff = (obfuscatedSize / originalSize) * 100
     if sizeDiff > 0:
-        sizePercent = '+' + str(round(sizeDiff, 2)) + '%'
+        sizePercentage = '+' + str(round(sizeDiff, 2)) + '%'
 
     else:
-        sizePercent = '-' + str(round(sizeDiff, 2)) + '%'
+        sizePercentage = '-' + str(round(sizeDiff, 2)) + '%'
 
 
     tf.close()
