@@ -34,7 +34,7 @@ console.geometry("1000x650")
 mainMenuFrame = Frame(console, relief=SUNKEN, height=800, width=1000, background='orange')
 buttonFrame = Frame(console, height=100, width=1000, borderwidth=10, relief=GROOVE, background='green')
 mainframe = Frame(console, height=550, width=1000, borderwidth=10, relief=SUNKEN, background='orange')
-
+my_frame1 = Frame(console, height=800, width=1000, borderwidth=10, background='orange')
 contentFrame = Frame(mainframe, height=600, width=1000, borderwidth=10)
 
 """def listbox_used(event):
@@ -54,6 +54,28 @@ def proceed():  # will run if user selects the option to reupload dataset from t
   # prompts user to select file again
     # removes the mainmenuframe
     mainMenuFrame.pack_forget()
+    my_frame1.pack()
+
+    def mutliple_yview(*args):
+        txt1.yview(*args)
+        txt2.yview(*args)
+
+    def mutliple_xview(*args):
+        txt1.xview(*args)
+        txt2.xview(*args)
+    hor_scroll = Scrollbar(my_frame1, orient='horizontal')
+    hor_scroll.pack(side=BOTTOM, fill=X)
+    text_scroll = Scrollbar(my_frame1)
+    text_scroll.pack(side=RIGHT, fill=Y)
+    txt1 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                , wrap="none", xscrollcommand=hor_scroll.set)
+    txt1.pack(pady=0)
+    # SECOND textbox
+    txt2 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                , wrap="none", xscrollcommand=hor_scroll.set)
+    txt2.pack(pady=10)
+    text_scroll.config(command=mutliple_yview)
+    hor_scroll.config(command=mutliple_xview)
 
 
 if __name__== "__main__":
