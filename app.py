@@ -4,6 +4,7 @@ from tkinter import filedialog
 import pandas as pd
 from werkzeug.utils import secure_filename
 import time
+import os
 
 console = Tk()
 
@@ -19,6 +20,43 @@ def fileBrowser():
     entry.insert(END, tf)
     tf = open(tf, 'r')
     data = tf.read()
+    mainMenuFrame.pack_forget()
+    my_frame1.pack()
+
+    def mutliple_yview(*args):
+        txt1.yview(*args)
+        txt2.yview(*args)
+
+    def mutliple_xview(*args):
+        txt1.xview(*args)
+        txt2.xview(*args)
+    hor_scroll = Scrollbar(my_frame1, orient='horizontal')
+    hor_scroll.pack(side=BOTTOM, fill=X)
+    text_scroll = Scrollbar(my_frame1)
+    text_scroll.pack(side=RIGHT, fill=Y)
+    txt1 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                , wrap="none", xscrollcommand=hor_scroll.set)
+    txt1.pack(pady=0)
+    # SECOND textbox
+    txt2 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                , wrap="none", xscrollcommand=hor_scroll.set)
+    txt2.pack(pady=10)
+    text_scroll.config(command=mutliple_yview)
+    hor_scroll.config(command=mutliple_xview)
+
+    txt1.insert(END, data)
+    start = time.time()
+    originalSize = os.stat(data).st_size
+    end = time.time()
+    obfuscatedSize = os.stat(data).st_size
+    # Calculate size difference of the two MainActivity.smali in percentage
+    sizeDiff = (obfuscatedSize / originalSize) * 100
+    if sizeDiff > 0:
+        sizePercent = '+' + str(round(sizeDiff, 2)) + '%'
+
+    else:
+        sizePercent = '-' + str(round(sizeDiff, 2)) + '%'
+
 
     tf.close()
 
@@ -54,29 +92,7 @@ def proceed():  # will run if user selects the option to reupload dataset from t
     """This function runs if user selects the option to reupload dataset from the menu page"""
   # prompts user to select file again
     # removes the mainmenuframe
-    mainMenuFrame.pack_forget()
-    my_frame1.pack()
 
-    def mutliple_yview(*args):
-        txt1.yview(*args)
-        txt2.yview(*args)
-
-    def mutliple_xview(*args):
-        txt1.xview(*args)
-        txt2.xview(*args)
-    hor_scroll = Scrollbar(my_frame1, orient='horizontal')
-    hor_scroll.pack(side=BOTTOM, fill=X)
-    text_scroll = Scrollbar(my_frame1)
-    text_scroll.pack(side=RIGHT, fill=Y)
-    txt1 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
-                , wrap="none", xscrollcommand=hor_scroll.set)
-    txt1.pack(pady=0)
-    # SECOND textbox
-    txt2 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
-                , wrap="none", xscrollcommand=hor_scroll.set)
-    txt2.pack(pady=10)
-    text_scroll.config(command=mutliple_yview)
-    hor_scroll.config(command=mutliple_xview)
 
 
 if __name__== "__main__":
