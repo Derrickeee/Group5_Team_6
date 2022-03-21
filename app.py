@@ -103,12 +103,12 @@ if __name__== "__main__":
        # x=150, y=350)
     mainMenuFrame.pack()
     continue_button = Button(mainMenuFrame, text="Continue", bg="red3", font="lucida 15 bold", borderwidth=3, height=1,
-                           width=8, command=proceed).place(x=700, y=340)
+                           width=8, command=proceed).place(x=600, y=340)
     browseButton = Button(mainMenuFrame, text="Browse", bg="red3", font="lucida 15 bold", borderwidth=3, height=1,
-                            width=13, command=fileBrowser).place(x=700, y=50)
+                            width=13, command=fileBrowser).place(x=600, y=50)
 
 
-    entry.place(x=250, y=140)
+    entry.place(x=100, y=50)
     sentiment = Label(console)
     sentiment.pack()
     console.mainloop()
