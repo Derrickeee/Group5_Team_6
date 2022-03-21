@@ -1,6 +1,6 @@
 import tkinter.messagebox
 from tkinter import *
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import pandas as pd
 from werkzeug.utils import secure_filename
 import time
@@ -9,56 +9,14 @@ import os
 console = Tk()
 
 
-
-
 def fileBrowser():
+    global tf
     tf = filedialog.askopenfilename(
         initialdir="",
         title="Open Text file",
         filetypes=(("Text Files", "*.txt"),("SMALI Files", "*.smali"),("APK Files", "*.apk"),("JAVA Files", "*.java"),("Kotlin Files","*.kt"))
     )
     entry.insert(END, tf)
-    tf = open(tf, 'r')
-    data = tf.read()
-    mainMenuFrame.pack_forget()
-    my_frame1.pack()
-
-    def mutliple_yview(*args):
-        txt1.yview(*args)
-        txt2.yview(*args)
-
-    def mutliple_xview(*args):
-        txt1.xview(*args)
-        txt2.xview(*args)
-    hor_scroll = Scrollbar(my_frame1, orient='horizontal')
-    hor_scroll.pack(side=BOTTOM, fill=X)
-    text_scroll = Scrollbar(my_frame1)
-    text_scroll.pack(side=RIGHT, fill=Y)
-    txt1 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
-                , wrap="none", xscrollcommand=hor_scroll.set)
-    txt1.pack(pady=0)
-    # SECOND textbox
-    txt2 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
-                , wrap="none", xscrollcommand=hor_scroll.set)
-    txt2.pack(pady=10)
-    text_scroll.config(command=mutliple_yview)
-    hor_scroll.config(command=mutliple_xview)
-
-    txt1.insert(END, data)
-    start = time.time()
-    originalSize = os.stat(data).st_size
-    end = time.time()
-    obfuscatedSize = os.stat(data).st_size
-    # Calculate size difference of the two MainActivity.smali in percentage
-    sizeDiff = (obfuscatedSize / originalSize) * 100
-    if sizeDiff > 0:
-        sizePercentage = '+' + str(round(sizeDiff, 2)) + '%'
-
-    else:
-        sizePercentage = '-' + str(round(sizeDiff, 2)) + '%'
-
-
-    tf.close()
 
 #df = pd.DataFrame(file)  # Converts to dataframe for easier handling
 
@@ -89,6 +47,54 @@ listbox.pack()"""
 
 
 def proceed():  # will run if user selects the option to reupload dataset from the menu page
+
+    if tf[-2:].lower() not in ['kt'] and tf[-3:].lower() not in ['txt', 'apk'] and tf[-4:].lower() not in ['java'] and tf[-5:].lower not in ['smali']:
+        messagebox.showError("File not selected!")
+    else:
+
+        tfi = open(tf, 'r')
+        data = tfi.read()
+        mainMenuFrame.pack_forget()
+        my_frame1.pack()
+        mainMenuFrame.pack_forget()
+        my_frame1.pack()
+
+        def mutliple_yview(*args):
+            txt1.yview(*args)
+            txt2.yview(*args)
+
+        def mutliple_xview(*args):
+            txt1.xview(*args)
+            txt2.xview(*args)
+
+        hor_scroll = Scrollbar(my_frame1, orient='horizontal')
+        hor_scroll.pack(side=BOTTOM, fill=X)
+        text_scroll = Scrollbar(my_frame1)
+        text_scroll.pack(side=RIGHT, fill=Y)
+        txt1 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                    , wrap="none", xscrollcommand=hor_scroll.set)
+        txt1.pack(pady=0)
+        # SECOND textbox
+        txt2 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                    , wrap="none", xscrollcommand=hor_scroll.set)
+        txt2.pack(pady=10)
+        text_scroll.config(command=mutliple_yview)
+        hor_scroll.config(command=mutliple_xview)
+
+        txt1.insert(END, data)
+        start = time.time()
+        originalSize = os.stat(data).st_size
+        end = time.time()
+        obfuscatedSize = os.stat(data).st_size
+        # Calculate size difference of the two MainActivity.smali in percentage
+        sizeDiff = (obfuscatedSize / originalSize) * 100
+        if sizeDiff > 0:
+            sizePercentage = '+' + str(round(sizeDiff, 2)) + '%'
+
+        else:
+            sizePercentage = '-' + str(round(sizeDiff, 2)) + '%'
+
+        tf.close()
     """This function runs if user selects the option to reupload dataset from the menu page"""
   # prompts user to select file again
     # removes the mainmenuframe
