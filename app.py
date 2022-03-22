@@ -34,6 +34,9 @@ def proceed():  # will run if user selects the option to reupload dataset from t
             mainMenuFrame.pack_forget()
             my_frame1.pack()
 
+            if tf[-4:].lower() in ['java']:
+                print("Hi")
+
             def mutliple_yview(*args):
                 txt1.yview(*args)
                 txt2.yview(*args)
