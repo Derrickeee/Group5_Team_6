@@ -28,7 +28,6 @@ def proceed():  # will run if user selects the option to reupload dataset from t
             messagebox.showerror("Incorrect file type!")
         else:
             tfi = open(tf, 'r')
-            print(tfi)
             data = tfi.read()
             mainMenuFrame.pack_forget()
             my_frame1.pack()
