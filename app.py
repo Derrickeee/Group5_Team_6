@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 import time
 import os
 
+import javaobfuscator
+
 console = Tk()
 
 
@@ -14,7 +16,7 @@ def fileBrowser():
     tf = filedialog.askopenfilename(
         initialdir="",
         title="Open Text file",
-        filetypes=(("Text Files", "*.txt"),("SMALI Files", "*.smali"),("APK Files", "*.apk"),("JAVA Files", "*.java"),("Kotlin Files","*.kt"))
+        filetypes=(("SMALI Files", "*.smali"),("APK Files", "*.apk"),("JAVA Files", "*.java"),("Kotlin Files","*.kt"))
     )
 
     entry.insert(END, tf)
@@ -22,11 +24,17 @@ def fileBrowser():
 #df = pd.DataFrame(file)  # Converts to dataframe for easier handling
 
 
+def find_files(filename, search_path):
+   result = []
+
+   for root, dir, files in os.walk(search_path):
+      if filename in files:
+         result.append(os.path.join(root, filename))
+   return result
+
 def proceed():  # will run if user selects the option to reupload dataset from the menu page
+    global filename
     try:
-        if tf[-2:].lower() not in ['kt'] and tf[-3:].lower() not in ['txt', 'apk'] and tf[-4:].lower() not in ['java'] and tf[-5:].lower not in ['smali']:
-            messagebox.showerror("Incorrect file type!")
-        else:
             tfi = open(tf, 'r')
             data = tfi.read()
             mainMenuFrame.pack_forget()
@@ -34,8 +42,7 @@ def proceed():  # will run if user selects the option to reupload dataset from t
             mainMenuFrame.pack_forget()
             my_frame1.pack()
 
-            if tf[-4:].lower() in ['java']:
-                print("Hi")
+
 
             def mutliple_yview(*args):
                 txt1.yview(*args)
@@ -60,6 +67,17 @@ def proceed():  # will run if user selects the option to reupload dataset from t
             hor_scroll.config(command=mutliple_xview)
 
             txt1.insert(END, data)
+            if tf[-4:].lower() in ['java']:
+                javaFile = find_files(filename)[0]
+                rawFilename = javaFile.split('/')[-1]
+                # Obfuscate the java file uploaded
+                start = time.time()
+                javaobfuscator.main(javaFile, '/' + rawFilename)
+
+                with open(rawFilename, 'r', encoding='utf-8-sig') as file:
+                    obfuscatedContents = file.read()
+                    txt2.insert(END, obfuscatedContents)
+                    file.close()
             start = time.time()
             originalSize = os.stat(data).st_size
             end = time.time()
