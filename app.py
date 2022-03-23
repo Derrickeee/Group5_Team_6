@@ -21,7 +21,6 @@ def fileBrowser():
 
     entry.insert(END, tf)
 
-#df = pd.DataFrame(file)  # Converts to dataframe for easier handling
 
 
 def find_files(filename, search_path):
@@ -30,13 +29,16 @@ def find_files(filename, search_path):
    for root, dir, files in os.walk(search_path):
       if filename in files:
          result.append(os.path.join(root, filename))
+         print(search_path)
    return result
 
+
 def proceed():  # will run if user selects the option to reupload dataset from the menu page
+    global tf
     global filename
     try:
-            tfi = open(tf, 'r')
-            data = tfi.read()
+            tf = open(tf, 'r')
+            data = tf.read()
             mainMenuFrame.pack_forget()
             my_frame1.pack()
             mainMenuFrame.pack_forget()
@@ -68,11 +70,13 @@ def proceed():  # will run if user selects the option to reupload dataset from t
 
             txt1.insert(END, data)
             if tf[-4:].lower() in ['java']:
-                javaFile = find_files(filename)[0]
+                print("True")
+                javaFile = find_files(filename, './uploads/')[0]
+                print(javaFile)
                 rawFilename = javaFile.split('/')[-1]
                 # Obfuscate the java file uploaded
                 start = time.time()
-                javaobfuscator.main(javaFile, '/' + rawFilename)
+                javaobfuscator.main('C:/Users/alice/Documents/ICT1009/Lecture 3/Lecture3A.java')
 
                 with open(rawFilename, 'r', encoding='utf-8-sig') as file:
                     obfuscatedContents = file.read()
