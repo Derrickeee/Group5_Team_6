@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import time
 import os
 
+import javaobfuscator
 
 console = Tk()
 
@@ -26,12 +27,12 @@ def fileBrowser():
 
 
 
-def find_files(filename, search_path):
+def find_files(file_name, search_path):
    result = []
 
    for root, dir, files in os.walk(search_path):
-      if filename in files:
-         result.append(os.path.join(root, filename))
+      if file_name in files:
+         result.append(os.path.join(root, file_name))
          print(search_path)
    return result
 
@@ -39,7 +40,7 @@ def find_files(filename, search_path):
 def proceed():
     # will run if user selects the option to reupload dataset from the menu page
 
-    global filename
+
     tfi = open(tf, 'r')
     print(tfi)
     data = tfi.read()
@@ -72,9 +73,18 @@ def proceed():
 
     txt1.insert(END, data)
     if tf[-4:].lower() in ['java']:
-        print("True")
-        #javaFile = find_files(filename, './uploads/')[0]
-        #print(javaFile)
+        javaFile = find_files(file_name, './uploads/')[0]
+        rawFilename = javaFile.split('/')[-1]
+        javaobfuscator.main(javaFile, './uploads/obfuscated_' + rawFilename)
+        with open('./uploads/' + rawFilename, 'r', encoding='utf-8-sig') as file:
+            originalContents = file.read()
+            file.close()
+
+                    # Grab obfuscated file contents for output
+        with open('./uploads/obfuscated_' + rawFilename, 'r', encoding='utf-8-sig') as file:
+            obfuscatedContents = file.read()
+            file.close()
+            entry.insert(END, obfuscatedContents)
         #rawFilename = javaFile.split('/')[-1]
         # Obfuscate the java file uploaded
         #start = time.time()
@@ -83,19 +93,19 @@ def proceed():
             #obfuscatedContents = file.read()
             #txt2.insert(END, obfuscatedContents)
             #file.close()
-    start = time.time()
-    originalSize = os.stat(data).st_size
-    end = time.time()
-    obfuscatedSize = os.stat(data).st_size
-    # Calculate size difference of the two MainActivity.smali in percentage
-    sizeDiff = (obfuscatedSize / originalSize) * 100
-    if sizeDiff > 0:
-        sizePercentage = '+' + str(round(sizeDiff, 2)) + '%'
-
-    else:
-        sizePercentage = '-' + str(round(sizeDiff, 2)) + '%'
-
-    tf.close()
+    # start = time.time()
+    # originalSize = os.stat(data).st_size
+    # end = time.time()
+    # obfuscatedSize = os.stat(data).st_size
+    # # Calculate size difference of the two MainActivity.smali in percentage
+    # sizeDiff = (obfuscatedSize / originalSize) * 100
+    # if sizeDiff > 0:
+    #     sizePercentage = '+' + str(round(sizeDiff, 2)) + '%'
+    #
+    # else:
+    #     sizePercentage = '-' + str(round(sizeDiff, 2)) + '%'
+    #
+    # tf.close()
 
 
     """This function runs if user selects the option to reupload dataset from the menu page"""
