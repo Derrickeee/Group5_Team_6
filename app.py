@@ -73,18 +73,16 @@ def proceed():
 
     txt1.insert(END, data)
     if tf[-4:].lower() in ['java']:
-        javaFile = find_files(file_name, './uploads/')[0]
-        rawFilename = javaFile.split('/')[-1]
-        javaobfuscator.main(javaFile, './uploads/obfuscated_' + rawFilename)
-        with open('./uploads/' + rawFilename, 'r', encoding='utf-8-sig') as file:
-            originalContents = file.read()
-            file.close()
+        javaFile = '/' + file_name
+        print(javaFile)
+        javaobfuscator.main(javaFile, 'obfuscated_' +file_name)
+
 
                     # Grab obfuscated file contents for output
-        with open('./uploads/obfuscated_' + rawFilename, 'r', encoding='utf-8-sig') as file:
+        with open('obfuscated_' + file_name, 'r', encoding='utf-8-sig') as file:
             obfuscatedContents = file.read()
             file.close()
-            entry.insert(END, obfuscatedContents)
+            txt2.insert(END, obfuscatedContents)
         #rawFilename = javaFile.split('/')[-1]
         # Obfuscate the java file uploaded
         #start = time.time()
