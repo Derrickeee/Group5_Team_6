@@ -6,7 +6,6 @@ from werkzeug.utils import secure_filename
 import time
 import os
 
-import javaobfuscator
 
 console = Tk()
 
