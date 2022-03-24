@@ -332,3 +332,61 @@ def generateMathJunk(current, final):
         instruction.append(mul)
 
     return instruction
+
+def unpacking(APK):
+    name = os.path.basename(APK)
+    name = name.split(".apk")[0]
+    folder = "decodeAPK"
+    os.system("java -jar apktool.jar -f d " + APK + " -o decodeAPK")
+    return name, folder
+
+
+def packing(name):
+    os.system("java -jar apktool.jar -f b decodeAPK -o " + name + ".apk")
+
+
+def locate(path):
+    fileList = []
+    for root, sub, files in os.walk(path):
+        for file in files:
+            if ("\com\\" in root) and ("\google\\" not in root)  and ("R$" not in file) and (file != "BuildConfig.smali") and (file != "R.smali"):
+            # if ("\com\\" in root) and ("\google\\" not in root) and ("R$" not in file) and (file != "R.smali"):
+                path = root+"\\"+file
+                fileList.append(path)
+    return fileList
+
+def obfuscate(data):
+    removeline(data)
+    unreachable(data)
+    insertjunk(data)
+    reorder(data)
+
+def write(data):
+    for i in data:
+        print (i)
+
+def getFileName(APKpath):
+    nameAPK = APKpath
+    # Decompile the apk
+
+    name,folder = unpacking(nameAPK)
+    # Extract the filename from the apk
+    name = name+"-obfuscated"
+
+    # Locate all the main .smali
+    fileList = locate(folder)
+    return name, folder, fileList
+
+
+
+def main_obfuscation(file):
+
+    # Obfuscate every file inside the list
+    data = open(file,"r").readlines()  #List
+    obfuscate(data)
+
+    obfuscatedOutput = ""
+    for i in data:
+        obfuscatedOutput += str(i) + "\n"
+
+    return file, obfuscatedOutput

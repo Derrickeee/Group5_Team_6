@@ -203,9 +203,7 @@ def obfSoutStr(soutStr):
 
 
 def removeLog(line):
-    if re.search('android\.util\.Log\.[a-z]+.*', line):
-        line = ""
-    if re.search('Log\.[a-z]+.*', line):
+    if re.search('android\.util\.Log\.[a-z]+.*', line) or re.search('Log\.[a-z]+.*', line):
         line = ""
     return line
 

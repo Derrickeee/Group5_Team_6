@@ -7,6 +7,7 @@ import time
 import os
 
 import javaobfuscator
+import apkobfuscator
 
 console = Tk()
 
@@ -22,7 +23,6 @@ def fileBrowser():
     )
     file_name = os.path.basename(tf)
     file_path = tf
-    print(file_name, file_path)
     entry.insert(END, tf)
 
 
@@ -42,7 +42,6 @@ def proceed():
 
 
     tfi = open(tf, 'r')
-    print(tfi)
     data = tfi.read()
     mainMenuFrame.pack_forget()
     my_frame1.pack()
@@ -74,15 +73,30 @@ def proceed():
     txt1.insert(END, data)
     if tf[-4:].lower() in ['java']:
         javaFile = tf
-        print(javaFile)
-        javaobfuscator.main(javaFile, 'obfuscated_' +file_name)
+        javaobfuscator.main(javaFile, 'obfuscated_' + file_name)
 
-
-                    # Grab obfuscated file contents for output
+        # Grab obfuscated file contents for output
         with open('obfuscated_' + file_name, 'r', encoding='utf-8-sig') as file:
-           obfuscatedContents = file.read()
-           file.close()
-           txt2.insert(END, obfuscatedContents)
+            obfuscatedContents = file.read()
+            file.close()
+            txt2.insert(END, obfuscatedContents)
+    elif tf[-3:].lower() in ['apk']:
+        filepath = tf
+        name, folder, fileList = apkobfuscator.getFileName(filepath)
+        path = None
+        for file in fileList:
+                path = os.path.abspath(file)  # Get the file path
+                fileOb, obfuscatedText = apkobfuscator.main_obfuscation(path)
+                txt2.insert(END, fileOb)
+
+               # Rename the class files
+        apkobfuscator.class_rename(folder)
+
+               # Pack the folder back into apk
+        apkobfuscator.packing(name)
+            # Delete the working path
+            # path = os.getcwd() + "\\"+folder
+            # shutil.rmtree(path)
 
         #rawFilename = javaFile.split('/')[-1]
         # Obfuscate the java file uploaded
@@ -128,18 +142,6 @@ mainframe = Frame(console, height=550, width=1000, borderwidth=10, relief=SUNKEN
 my_frame1 = Frame(console, height=800, width=1000, borderwidth=10, background='orange')
 contentFrame = Frame(mainframe, height=600, width=1000, borderwidth=10)
 
-"""def listbox_used(event):
-    print(listbox.get(listbox.curselection()))
-
-
-listbox = tkinter.Listbox(height=4)
-fruits = ["Apple", "Pear", "Orange", "Banana"]
-for item in fruits:
-    listbox.insert(fruits.index(item), item)
-listbox.bind("<<ListboxSelect>>", listbox_used)
-listbox.pack()"""
-
-
 
 
 
@@ -157,6 +159,4 @@ if __name__== "__main__":
 
 
     entry.place(x=100, y=50)
-    sentiment = Label(console)
-    sentiment.pack()
     console.mainloop()
