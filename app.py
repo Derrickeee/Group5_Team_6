@@ -1,11 +1,6 @@
-import tkinter.messagebox
 from tkinter import *
 from tkinter import filedialog, messagebox
-import pandas as pd
-from werkzeug.utils import secure_filename
-import time
 import os
-
 import javaobfuscator
 import apkobfuscator
 
