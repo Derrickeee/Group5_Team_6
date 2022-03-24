@@ -3,6 +3,17 @@ import secrets
 import os
 
 
+def getVarName(line):
+    res = None
+    if re.search('(public\s|private\s)?(static\s|final\s)?[a-zA-Z<>\[\]]*\s[a-zA-Z]\w*\s?[,=;\)]\s?', line):
+        res = re.findall('[a-zA-Z<>\[\]]*\s([a-zA-Z]\w*)\s?[,=;\)]', line)
+    return res
+
+def getSoutLn(line):
+    res = None
+    res = re.findall('System.out.println\(\".+?\"\)\;', line)
+    return res
+
 def getMethodName(line):
     res = None
     if re.search(
@@ -10,30 +21,6 @@ def getMethodName(line):
             line):
         res = re.search('\s(\w+)\(.*\)', line).group(1)
     return res
-
-
-def getVarName(line):
-    res = None
-    if re.search('(public\s|private\s)?(static\s|final\s)?[a-zA-Z<>\[\]]*\s[a-zA-Z]\w*\s?[,=;\)]\s?', line):
-        res = re.findall('[a-zA-Z<>\[\]]*\s([a-zA-Z]\w*)\s?[,=;\)]', line)
-    return res
-
-
-def getSoutLn(line):
-    res = None
-    res = re.findall('System.out.println\(\".+?\"\)\;', line)
-    return res
-
-
-def getImport(lineArr):
-    res = []
-    exist = None
-    for line in lineArr:
-
-        if (re.search('import.+?;', line)):
-            res.append(line)
-    return res
-
 
 def removeComment(line, count):
     if count == 1:
@@ -56,15 +43,6 @@ def removeComment(line, count):
             # Remove line
             line = ""
     return line, count
-
-
-def removeLog(line):
-    if re.search('android\.util\.Log\.[a-z]+.*', line):
-        line = ""
-    if re.search('Log\.[a-z]+.*', line):
-        line = ""
-    return line
-
 
 def renameVar(inputFilePath, outputFilePath):
     methodNameDict = {}
@@ -134,6 +112,15 @@ def renameVar(inputFilePath, outputFilePath):
     outFile.close()
     javaFile.close()
 
+
+def getImport(lineArr):
+    res = []
+    exist = None
+    for line in lineArr:
+
+        if (re.search('import.+?;', line)):
+            res.append(line)
+    return res
 
 def obfSoutLn(soutLn):
     tempStr = ""
@@ -214,15 +201,13 @@ def obfSoutStr(soutStr):
     return "\\\\u002B".join(tempArr)
 
 
-def addUnicode(line):
-    splitArr = line.split("(")
 
-    obfSout = obfSoutLn(splitArr[0])
-
-    obfStr = obfSoutStr(splitArr[1])
-
-    return "\\\\u0028".join([obfSout, obfStr])
-
+def removeLog(line):
+    if re.search('android\.util\.Log\.[a-z]+.*', line):
+        line = ""
+    if re.search('Log\.[a-z]+.*', line):
+        line = ""
+    return line
 
 def runObfSout(inFile, outFile):
     # TODO CHANGE TO RELEVANT INPUT AND OUTPUT
@@ -311,6 +296,23 @@ def obfImport(line):
         tempStr += r'\\u{:04X}'.format(ord(char))
 
     return tempStr
+
+
+
+
+
+
+def addUnicode(line):
+    splitArr = line.split("(")
+
+    obfSout = obfSoutLn(splitArr[0])
+
+    obfStr = obfSoutStr(splitArr[1])
+
+    return "\\\\u0028".join([obfSout, obfStr])
+
+
+
 
 
 def main(inFile, outFile):
