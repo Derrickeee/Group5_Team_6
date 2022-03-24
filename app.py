@@ -73,16 +73,17 @@ def proceed():
 
     txt1.insert(END, data)
     if tf[-4:].lower() in ['java']:
-        javaFile = '/' + file_name
+        javaFile = tf
         print(javaFile)
         javaobfuscator.main(javaFile, 'obfuscated_' +file_name)
 
 
                     # Grab obfuscated file contents for output
         with open('obfuscated_' + file_name, 'r', encoding='utf-8-sig') as file:
-            obfuscatedContents = file.read()
-            file.close()
-            txt2.insert(END, obfuscatedContents)
+           obfuscatedContents = file.read()
+           file.close()
+           txt2.insert(END, obfuscatedContents)
+
         #rawFilename = javaFile.split('/')[-1]
         # Obfuscate the java file uploaded
         #start = time.time()
@@ -106,7 +107,7 @@ def proceed():
     # tf.close()
 
 
-    """This function runs if user selects the option to reupload dataset from the menu page"""
+        """This function runs if user selects the option to reupload dataset from the menu page"""
   # prompts user to select file again
     # removes the mainmenuframe
     # Window that updates after selecting CSV file

@@ -240,7 +240,7 @@ def runObfSout(inFile, outFile):
 def runObfImport(inFile, outFile):
     # TODO CHANGE TO RELEVANT INPUT AND OUTPUT
     filename = inFile
-    tempOutFile = open("./uploads/temp.txt", "w", encoding="utf-8")
+    tempOutFile = open("./temp.txt", "w", encoding="utf-8")
 
     with open(filename, "r", encoding="utf-8") as File:
         impNameDict = {}
@@ -285,7 +285,7 @@ def runObfImport(inFile, outFile):
         os.remove(outFile)
 
     # TODO CHANGE TO OUTPUT FILE DUN Change temp.txt
-    os.rename(r'./uploads/temp.txt', outFile)
+    os.rename(r'./temp.txt', outFile)
 
 
 def obfImport(line):
