@@ -212,7 +212,7 @@ def removeLog(line):
 def runObfSout(inFile, outFile):
     # TODO CHANGE TO RELEVANT INPUT AND OUTPUT
     filename = inFile
-    tempOutFile = open("./uploads/temp.txt", "w", encoding="utf-8")
+    tempOutFile = open("./temp.txt", "w", encoding="utf-8")
     soutNameDict = {}
 
     with open(filename, 'r', encoding="utf-8") as javaFile:
@@ -234,7 +234,7 @@ def runObfSout(inFile, outFile):
         os.remove(outFile)
 
     # TODO CHANGE TO OUTPUT FILE DUN Change temp.txt
-    os.rename(r'./uploads/temp.txt', outFile)
+    os.rename(r'./temp.txt', outFile)
 
 
 def runObfImport(inFile, outFile):
@@ -322,4 +322,4 @@ def main(inFile, outFile):
 
 
 if __name__ == "__main__":
-    main('./java/Example/test1.java', './uploads/testing2.java')
+    main('./java/Example/test1.java', './testing2.java')
