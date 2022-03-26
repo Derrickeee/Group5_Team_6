@@ -165,9 +165,9 @@ if __name__== "__main__":
   #  title = Label(mainMenuFrame, text="Obfuscate", fg="blue", font="lucida 25 bold").place(
        # x=150, y=350)
     mainMenuFrame.pack()
-    continue_button = Button(mainMenuFrame, text="Continue", bg="red3", font="lucida 15 bold", borderwidth=3, height=1,
+    continue_button = Button(mainMenuFrame, text="Continue", bg="red3", font=("Century Gothic", 15, 'bold'), borderwidth=3, height=1,
                            width=8, command=proceed).place(x=600, y=340)
-    browseButton = Button(mainMenuFrame, text="Browse", bg="red3", font="lucida 15 bold", borderwidth=3, height=1,
+    browseButton = Button(mainMenuFrame, text="Browse", bg="red3", font=("Century Gothic", 15, 'bold'), borderwidth=3, height=1,
                             width=13, command=fileBrowser).place(x=600, y=50)
 
 
