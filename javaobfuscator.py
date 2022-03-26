@@ -259,7 +259,6 @@ def runObfImport(inFile, outFile):
 
         for imp, new in impNameDict.items():
             for i, line in enumerate(lines):
-                # print(line)
                 if (re.search(rf'({re.escape(imp)})', line)):
                     print(i)
                     temp = i
@@ -268,11 +267,10 @@ def runObfImport(inFile, outFile):
         test3 = "\n"
         test4 = "\\u002F\\u002A\n"
         test5 = "\n*/ \n"
-        # lines.insert(temp, "asd")
         lines.insert(temp, test3)
         lines.insert(temp + 2, test4)
         lines.insert(temp + 3, test5)
-        # javaFile.seek(0)                 # file pointer locates at the beginning to write the whole file again
+ # file pointer locates at the beginning to write the whole file again
         tempOutFile.writelines(lines)  # write whole lists again to the same file
 
     tempOutFile.close()
