@@ -35,60 +35,62 @@ def find_files(file_name, search_path):
 def proceed():
     # will run if user selects the option to reupload dataset from the menu page
 
+    try:
+        tfi = open(tf, 'r')
+        data = tfi.read()
+        mainMenuFrame.pack_forget()
+        my_frame1.pack()
+        mainMenuFrame.pack_forget()
+        my_frame1.pack()
 
-    tfi = open(tf, 'r')
-    data = tfi.read()
-    mainMenuFrame.pack_forget()
-    my_frame1.pack()
-    mainMenuFrame.pack_forget()
-    my_frame1.pack()
+        def mutliple_yview(*args):
+            txt1.yview(*args)
+            txt2.yview(*args)
 
-    def mutliple_yview(*args):
-        txt1.yview(*args)
-        txt2.yview(*args)
+        def mutliple_xview(*args):
+            txt1.xview(*args)
+            txt2.xview(*args)
 
-    def mutliple_xview(*args):
-        txt1.xview(*args)
-        txt2.xview(*args)
+        hor_scroll = Scrollbar(my_frame1, orient='horizontal')
+        hor_scroll.pack(side=BOTTOM, fill=X)
+        text_scroll = Scrollbar(my_frame1)
+        text_scroll.pack(side=RIGHT, fill=Y)
+        txt1 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                    , wrap="none", xscrollcommand=hor_scroll.set)
+        txt1.pack(pady=0)
+        # SECOND textbox
+        txt2 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
+                    , wrap="none", xscrollcommand=hor_scroll.set)
+        txt2.pack(pady=10)
+        text_scroll.config(command=mutliple_yview)
+        hor_scroll.config(command=mutliple_xview)
 
-    hor_scroll = Scrollbar(my_frame1, orient='horizontal')
-    hor_scroll.pack(side=BOTTOM, fill=X)
-    text_scroll = Scrollbar(my_frame1)
-    text_scroll.pack(side=RIGHT, fill=Y)
-    txt1 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
-                , wrap="none", xscrollcommand=hor_scroll.set)
-    txt1.pack(pady=0)
-    # SECOND textbox
-    txt2 = Text(my_frame1, width=100, height=15, yscrollcommand=text_scroll.set
-                , wrap="none", xscrollcommand=hor_scroll.set)
-    txt2.pack(pady=10)
-    text_scroll.config(command=mutliple_yview)
-    hor_scroll.config(command=mutliple_xview)
+        txt1.insert(END, data)
+        if tf.endswith("java"):
+            javaFile = tf
+            javaobfuscator.main(javaFile, 'obfuscated_' + file_name)
 
-    txt1.insert(END, data)
-    if tf[-4:].lower() in ['java']:
-        javaFile = tf
-        javaobfuscator.main(javaFile, 'obfuscated_' + file_name)
+            # Grab obfuscated file contents for output
+            with open('obfuscated_' + file_name, 'r', encoding='utf-8-sig') as file:
+                obfuscatedContents = file.read()
+                file.close()
+                txt2.insert(END, obfuscatedContents)
+        elif tf.endswith("apk"):
+            filepath = tf
+            name, folder, fileList = apkobfuscator.getFileName(filepath)
+            path = None
+            for file in fileList:
+                    path = os.path.abspath(file)  # Get the file path
+                    fileOb, obfuscatedText = apkobfuscator.main_obfuscation(path)
+                    txt2.insert(END, fileOb)
 
-        # Grab obfuscated file contents for output
-        with open('obfuscated_' + file_name, 'r', encoding='utf-8-sig') as file:
-            obfuscatedContents = file.read()
-            file.close()
-            txt2.insert(END, obfuscatedContents)
-    elif tf[-3:].lower() in ['apk']:
-        filepath = tf
-        name, folder, fileList = apkobfuscator.getFileName(filepath)
-        path = None
-        for file in fileList:
-                path = os.path.abspath(file)  # Get the file path
-                fileOb, obfuscatedText = apkobfuscator.main_obfuscation(path)
-                txt2.insert(END, fileOb)
+                   # Rename the class files
+            apkobfuscator.class_rename(folder)
 
-               # Rename the class files
-        apkobfuscator.class_rename(folder)
-
-               # Pack the folder back into apk
-        apkobfuscator.packing(name)
+                   # Pack the folder back into apk
+            apkobfuscator.packing(name)
+    except:
+        messagebox.showerror(title="Not found", message="A")
             # Delete the working path
             # path = os.getcwd() + "\\"+folder
             # shutil.rmtree(path)
@@ -141,6 +143,22 @@ contentFrame = Frame(mainframe, height=600, width=1000, borderwidth=10)
 
 
 if __name__== "__main__":
+  #   console.title("Obfuscation Algorithm")
+  #   console.geometry("900x1200")
+  #   entry = Entry(mainMenuFrame, font="lucida 23 bold", width=20)
+  #   entry.grid(sticky=W+E+N+S)
+  # #  title = Label(mainMenuFrame, text="Obfuscate", fg="blue", font="lucida 25 bold").place(
+  #      # x=150, y=350)
+  #   mainMenuFrame.pack()
+  #   continue_button = Button(mainMenuFrame, text="Continue", bg="red3", font="lucida 15 bold", borderwidth=3, height=1,
+  #                          width=8, command=proceed)
+  #   continue_button.grid(sticky=W+E+N+S)
+  #   browseButton = Button(mainMenuFrame, text="Browse", bg="red3", font="lucida 15 bold", borderwidth=3, height=1,
+  #                           width=13, command=fileBrowser)
+  #   browseButton.grid(sticky=W + E + N + S)
+  #
+  #   entry.place(x=100, y=50)
+  #   console.mainloop()
     console.title("Obfuscation Algorithm")
     console.geometry("900x1200")
     entry = Entry(mainMenuFrame, font="lucida 23 bold", width=20)
