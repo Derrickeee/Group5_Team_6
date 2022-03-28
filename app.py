@@ -90,7 +90,7 @@ def proceed():
                    # Pack the folder back into apk
             apkobfuscator.packing(name)
     except:
-        messagebox.showerror(title="Not found", message="A")
+        messagebox.showerror(title="Error", message="Please select a file!")
             # Delete the working path
             # path = os.getcwd() + "\\"+folder
             # shutil.rmtree(path)
@@ -168,7 +168,7 @@ if __name__== "__main__":
     continue_button = Button(mainMenuFrame, text="Continue", bg="red3", font=("Century Gothic", 15, 'bold'), borderwidth=3, height=1,
                            width=8, command=proceed).place(x=600, y=340)
     browseButton = Button(mainMenuFrame, text="Browse", bg="red3", font=("Century Gothic", 15, 'bold'), borderwidth=3, height=1,
-                            width=13, command=fileBrowser).place(x=600, y=50)
+                            width=8, command=fileBrowser).place(x=600, y=50)
 
 
     entry.place(x=100, y=50)
