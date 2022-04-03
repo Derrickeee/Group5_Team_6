@@ -97,28 +97,13 @@ def reorder(data):
             elif (data[x].__contains__("return") or data[x].__contains__(".annotation")) and flag == 1:
                 data[end] = startofLabel + data[end]
                 flag = 0
-            # elif data[x].__contains__(".locals") and flag == 1: #For code Segmentation
-            #     var_num = int(data[x].split(".locals")[1].strip("\n"))
-            #     if var_num+1 <= 15:
-            #         data[x] = ".locals "+ str(var_num+1)+"\n"
-            #         var_declare="const/4 v" + str(var_num)+", "+"0x1\n"
-            #         switch_declare="packed-switch v" + str(var_num)+", :" + "pswitch_data_"+randStr+"\n"
-            #         data[x] = startofLabel + data[x]+var_declare + switch_declare + endofLabel
-            #         switch_var.append(str(var_num))
-            #         pswitch_string.append(randStr)
-            #         database.append(randInt)
-            #         seg_flag = 1
             elif (data[x] != "\n" or data[x] != "") and flag == 1:  # Included the pswitch label
-                # endofLabel_goto = "goto :goto_switch"+"\n"
-                # data[x] = segmentation+startofLabel + data[x]  + endofLabel_goto
                 data[x] = segmentation + startofLabel + data[x] + endofLabel
                 database.append(randInt)
 
-    # #Data Reshuffling
+    #Data Reshuffling
     reshuffle(data, start_index, end_index)
-    # Switch Segmentation
-    # if seg_flag ==1:
-    #     code_segmentation(data,switch_var)
+
 
 
 def class_rename(path):
