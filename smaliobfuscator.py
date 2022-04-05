@@ -80,3 +80,52 @@ def junk_method(self, smali_file: str):
             'Error during execution of method renaming: {0}'.format(e)
         )
         raise
+
+def addjunkcode(smaliCode):
+    counter = 0
+    saltNOP = "nop\n\n"
+
+    # reset iterator [ Salt with NOP ]
+    iterator = 0
+    with open(smaliCode, "r") as fp:
+        lines = fp.readlines()
+        while iterator < len(lines):
+            if ".method" in lines[iterator]:
+                randint = random.randint(3, 5)
+                for i in range(1, randint):
+                    lines.insert(iterator + i, saltNOP)
+                iterator += 1
+            if "if-le" in lines[iterator]:
+                check = [int(check) for check in re.findall(r'-?\d+\.?\d*', lines[iterator])]
+                try:
+                    if int(check[2]) > 500:
+                        randint = random.randint(3, 5)
+                        for i in range(1, randint):
+                            lines.insert(iterator + i, saltNOP)
+                except:
+                    pass
+                iterator += 1
+            iterator += 1
+    f = open(smaliCode, "w")
+    f.writelines(lines)
+    f.close()
+
+    # reset iterator [ Salt with goto junk ]
+    iterator = 0
+    with open(smaliCode, "r") as fp:
+        lines = fp.readlines()
+        while iterator < len(lines):
+            if "nop" in lines[iterator]:
+                anotherRand = random.randint(1, 3)
+                for i in range(0, anotherRand):
+                    saltGOTOfront = "goto : gogo_" + str(counter) + "\n"
+                    saltGOTOback = ": gogo_" + str(counter) + "\n\n"
+                    lines.insert(iterator + i, saltGOTOfront)
+                    lines.insert(iterator + 1 + i, saltGOTOback)
+                    counter += 1
+                    iterator += 2
+            iterator += 1
+    f = open(smaliCode, "w")
+    f.writelines(lines)
+    f.close()
+        
